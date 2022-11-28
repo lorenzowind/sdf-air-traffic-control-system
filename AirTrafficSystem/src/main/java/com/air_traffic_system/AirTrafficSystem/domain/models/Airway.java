@@ -18,10 +18,18 @@ import javax.persistence.Table;
 public class Airway {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private String id;
+  private int id;
   private String name;
 
   public Airway() {}
+
+  public Airway(String name, List<AirwayOccupation> airwayOccupations, AirRoute airRoute, GeoRef from, GeoRef to) {
+    this.name = name;
+    this.airwayOccupations = airwayOccupations;
+    this.airRoute = airRoute;
+    this.from = from;
+    this.to = to;
+  }
 
   @OneToMany(fetch = FetchType.EAGER,
              mappedBy = "airway", 
@@ -29,14 +37,18 @@ public class Airway {
   private List<AirwayOccupation> airwayOccupations;
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinColumn(name="id", nullable=false)
+  @JoinColumn(name="id", nullable=false, insertable=false, updatable=false)
+  private AirRoute airRoute;
+
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinColumn(name="id", nullable=false, insertable=false, updatable=false)
   private GeoRef from;
   
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinColumn(name="id", nullable=false)
+  @JoinColumn(name="id", nullable=false, insertable=false, updatable=false)
   private GeoRef to;
 
-  public String getId() {
+  public int getId() {
     return id;
   }
   public String getName() {
@@ -48,4 +60,10 @@ public class Airway {
   public GeoRef getTo() {
     return to;
   }
+  public List<AirwayOccupation> getAirwayOccupations() {
+    return airwayOccupations;
+  }
+  public AirRoute getAirRoute() {
+    return airRoute;
+  } 
 }

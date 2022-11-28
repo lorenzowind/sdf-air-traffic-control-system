@@ -11,14 +11,20 @@ import javax.persistence.Table;
 public class Airplane {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private String id;
+  private int id;
   private String prefix;
   private Float cruisingSpeed;
   private Integer autonomy;
 
   public Airplane() {}
-  
-  public String getId() {
+
+  public Airplane(String prefix, Float cruisingSpeed, Integer autonomy) {
+    this.prefix = prefix;
+    this.cruisingSpeed = cruisingSpeed;
+    this.autonomy = autonomy;
+  }
+
+  public int getId() {
     return id;
   }
   public String getPrefix() {

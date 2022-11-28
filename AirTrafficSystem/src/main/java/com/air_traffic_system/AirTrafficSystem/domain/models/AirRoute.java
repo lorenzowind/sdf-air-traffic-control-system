@@ -16,20 +16,28 @@ import javax.persistence.Table;
 public class AirRoute {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private String id;
+  private int id;
   private String name;
 
   @OneToMany(fetch = FetchType.EAGER,
-             mappedBy = "airroute", 
+             mappedBy = "airRoute", 
              cascade = CascadeType.ALL)
   private List<Airway> airways;
 
   public AirRoute() {}
-  
-  public String getId() {
+
+  public AirRoute(String name, List<Airway> airways) {
+    this.name = name;
+    this.airways = airways;
+  }
+
+  public int getId() {
     return id;
   }
   public String getName() {
     return name;
+  }
+  public List<Airway> getAirways() {
+    return airways;
   }
 }
